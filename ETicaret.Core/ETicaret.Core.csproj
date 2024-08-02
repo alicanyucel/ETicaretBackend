@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ETicaret.Domain\ETicaret.Domain.csproj" />
-  </ItemGroup>
-
 </Project>
