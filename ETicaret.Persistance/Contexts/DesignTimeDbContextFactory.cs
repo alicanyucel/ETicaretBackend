@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace ETicaret.Persistance.Contexts
 {
@@ -8,8 +9,11 @@ namespace ETicaret.Persistance.Contexts
     {
         public DataContext CreateDbContext(string[] args)
         {
+            ConfigurationManager configurationManager = new();
+            configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(),"../ETicaret.API"));
+            configurationManager.AddJsonFile("appsettings.json");
             DbContextOptionsBuilder<DbContext> dbContextOptionsBuilder = new();
-            dbContextOptionsBuilder.UseSqlServer("Data Source=DESKTOP-L6NJT48\\SQLEXPRESS;Initial Catalog=ECommerceDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;");
+            dbContextOptionsBuilder.UseSqlServer(Configuration.ConnectionString);
             return new(dbContextOptionsBuilder.Options);
         }
     }
