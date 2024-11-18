@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaret.Application.Repositories.Order
+namespace ETicaret.Persistance.Repositories
 {
-    internal interface IOrderWriteRepository
+    internal class ProductWriteRepository
     {
     }
 }
