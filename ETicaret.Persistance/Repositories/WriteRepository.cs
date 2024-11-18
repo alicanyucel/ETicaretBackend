@@ -2,6 +2,7 @@
 using ETicaret.Application.Repositories;
 using ETicaret.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ETicaret.Persistance.Repositories;
 
@@ -13,30 +14,43 @@ public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
         _context = context;
     }
 
-    public DbSet<T> Table => throw new NotImplementedException();
-
-    public Task<bool> AddAsync(T model)
+    public DbSet<T> Table => _context.Set<T>();
+    public async Task<bool> AddAsync(T model)
     {
-        throw new NotImplementedException();
+        EntityEntry<T> entityEntry = await Table.AddAsync(model);
+        return entityEntry.State == EntityState.Added;
     }
 
-    public Task<bool> AddRangeAsync(List<T> model)
+    public async Task<bool> AddRangeAsync(List<T> datas)
     {
-        throw new NotImplementedException();
+        await Table.AddRangeAsync(datas);
+        return true;
+
     }
 
-    public Task<bool> Remove(T model)
+    public bool Remove(T model)
     {
-        throw new NotImplementedException();
+        EntityEntry<T> entity = Table.Remove(model);
+        return entity.State == EntityState.Deleted;
+    }
+    public bool RemoveRange(List<T> datas)
+    {
+        Table.RemoveRange(datas);
+        return true;
+
+    }
+    public async Task<bool> RemoveAsync(string id)
+    {
+        T model = await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
+        return Remove(model);
     }
 
-    public Task<bool> Remove(string id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<int> SaveAsync()=>await _context.SaveChangesAsync();
+    
 
-    public Task<bool> UpdateAsync(T model)
+    public bool Update(T model)
     {
-        throw new NotImplementedException();
+        EntityEntry entityEntry =Table.Update(model);
+        return entityEntry.State == EntityState.Modified;
     }
 }
