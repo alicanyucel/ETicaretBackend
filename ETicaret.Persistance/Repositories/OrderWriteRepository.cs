@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ETicaret.Application.Repositories;
+using ETicaret.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ETicaret.Persistance.Repositories
 {
-    internal class OrderWriteRepository
+    public class OrderWriteRepository : WriteRepository<Order>, IOrderWriteRepository
     {
+        public OrderWriteRepository(DbContext context) : base(context)
+        {
+        }
     }
 }
