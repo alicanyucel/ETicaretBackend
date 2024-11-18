@@ -5,16 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaret.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductReadRepository _productReadRepository;
         private readonly IProductWriteRepository _productWriteRepository;
-        public ProductsController(IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository)
+        private readonly IProductReadRepository _productReadRepository;
+        public ProductsController( IProductWriteRepository productWriteRepository, IProductReadRepository productReadRepository)
         {
-            _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
+            _productReadRepository = productReadRepository;
+
         }
         [HttpGet]
         public async void Get()

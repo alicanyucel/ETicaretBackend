@@ -1,5 +1,7 @@
 
+using ETicaret.Application.Repositories;
 using ETicaret.Infrastructure;
+using ETicaret.Persistance.Repositories;
 
 namespace ETicaret.API
 {

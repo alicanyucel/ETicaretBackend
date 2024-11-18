@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaret.Application.Repositories
+namespace ETicaret.Application.Repositories;
+
+public interface IProductReadRepository:IReadRepository<Product>
 {
-    public interface IProductReadRepository:IReadRepository<Product>
-    {
-    }
 }
